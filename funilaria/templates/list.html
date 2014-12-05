@@ -1,0 +1,40 @@
+
+
+{% block body %}
+    {% block model_list_table %}
+        <table class="table table-striped table-bordered table-hover model-list">
+            <thead>
+                <tr>
+                    {% block list_header scoped %}
+                        {% set column = 0 %}
+                        {% for c, name in list_columns %}
+                        <th class="column-header">
+                            {{ name }}
+                        </th>
+                        {% set column = column + 1 %}
+                        {% endfor %}
+                    {% endblock %}
+                </tr>
+            </thead>
+            {% for row in data %}
+            <tr>
+                {% block list_row scoped %}
+                    {% for c, name in list_columns %}
+                    <td>{{ get_value(row, c) }}</td>
+                    {% endfor %}
+                {% endblock %}
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="999">
+                    {% block empty_list_message %}
+                    <div class="text-center">
+                        {{ admin_view.get_empty_list_message() }}
+                    </div>
+                    {% endblock %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endblock %}
+{% endblock %}

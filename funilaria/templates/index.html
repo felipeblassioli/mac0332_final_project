@@ -1,0 +1,23 @@
+
+
+{% block body %}
+	<h1>Dados</h1>
+
+	{% for k,v in client.data.items() %}
+		<li>{{ k }}:{{ v }}</li>
+	{% endfor %}
+
+	{% set _data = client.orders %}
+	{% set _columns = list_columns %}
+
+	<h1>Ordens</h1>
+	{% set data = client.orders %}
+	{% set list_columns = _columns['orders'] %}
+	{% include 'list.html' with context %}
+
+	{% set data = client.vehicles %}
+	{% set list_columns = _columns['vehicles'] %}
+	<h1>Veiculos</h1>
+	{% include 'list.html' with context %}
+    
+{% endblock %}

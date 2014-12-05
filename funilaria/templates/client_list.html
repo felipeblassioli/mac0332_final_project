@@ -1,0 +1,81 @@
+{% extends 'admin/model/list.html' %}
+
+{% block list_row_actions %}
+
+	<ul>
+		<li>
+		    <a class="icon" href="{{ url_for('.edit_view', id=get_pk_value(row), url=return_url) }}" title="{{ _gettext('Edit record') }}">
+		        <span class="glyphicon glyphicon-pencil">Edit</span>
+		    </a>
+		</li>
+	    <!-- href="{{ url_for('clientview.index', id=get_pk_value(row), url=return_url) }}" -->
+
+		<li>
+		    <a class="icon"  title="{{ _gettext('View record') }}" onclick="showDetails({{ get_pk_value(row) }})">
+		    <span class="glyphicon glyphicon-pencil">View</span>
+			</a>
+		</li>
+
+		<li>
+			<a class="icon"  title="{{ _gettext('Order') }}" onclick="showOrderForm({{ get_pk_value(row) }})">
+		    <span class="glyphicon glyphicon-pencil">Gerar Ordem</span>
+			</a>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block head_tail %}
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css">
+{% endblock %}
+
+{% block tail %}
+	<div id="dialog" style="display: none;"></div>
+
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script>
+		function showDialog(title,width){
+			$('#dialog').dialog({
+				autoOpen: true,
+				modal: true,
+				position: 'center' ,
+				title: title,
+				draggable: false,
+				width: width,
+				buttons: {
+					"Gerar Ordem": function(){
+						$("#frame").contents().find('form').submit();
+						$( this ).dialog( "close" );
+					},
+					Cancel: function() {
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$('#dialog').empty();
+				},
+				closeOnEscape: true
+			});
+
+/*			function() {
+		        $(this).contents().find('form').submit(function() {
+		            return false;
+		        });
+		    }*/
+		}
+		function showDetails(id) {
+			//alert(id);
+			$('#dialog').load('{{ url_for('clientview.index') }}'+id);
+			showDialog('Detalhes',1170);
+		}
+
+		function showOrderForm(client_id){
+			//$('#dialog').load('{{ url_for('orderview.create_view') }}')
+			var htmlString = '<iframe id="frame" src="" width="100%" height="600"></iframe>';
+			//alert(htmlString);
+			$('#dialog').html(htmlString);
+			$("#frame").attr("src", "{{ url_for('orderview.create_view') }}");
+			//$('#frame').load("{{ url_for('orderview.create_view') }}");
+			showDialog('Gerar Ordem',640);
+		}
+	</script>
+{% endblock %}
