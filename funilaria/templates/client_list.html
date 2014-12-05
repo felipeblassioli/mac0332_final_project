@@ -33,14 +33,43 @@
 
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script>
-		function showDialog(title,width){
+
+		function showDetails(id) {
+			//alert(id);
+			$('#dialog').load('{{ url_for('clientview.index') }}'+id);
 			$('#dialog').dialog({
 				autoOpen: true,
 				modal: true,
 				position: 'center' ,
-				title: title,
+				title: 'Detalhes',
 				draggable: false,
-				width: width,
+				width: 1170,
+				buttons: {
+					Cancel: function() {
+						$( this ).dialog( "close" );
+					}
+				},
+				close: function() {
+					$('#dialog').empty();
+				},
+				closeOnEscape: true
+			});
+		}
+
+		function showOrderForm(client_id){
+			//$('#dialog').load('{{ url_for('orderview.create_view') }}')
+			var htmlString = '<iframe id="frame" src="" width="100%" height="600"></iframe>';
+			//alert(htmlString);
+			$('#dialog').html(htmlString);
+			$("#frame").attr("src", "{{ url_for('orderview.create_view') }}");
+			//$('#frame').load("{{ url_for('orderview.create_view') }}");
+			$('#dialog').dialog({
+				autoOpen: true,
+				modal: true,
+				position: 'center' ,
+				title: 'Gerar Ordem',
+				draggable: false,
+				width: 640,
 				buttons: {
 					"Gerar Ordem": function(){
 						$("#frame").contents().find('form').submit();
@@ -55,27 +84,6 @@
 				},
 				closeOnEscape: true
 			});
-
-/*			function() {
-		        $(this).contents().find('form').submit(function() {
-		            return false;
-		        });
-		    }*/
-		}
-		function showDetails(id) {
-			//alert(id);
-			$('#dialog').load('{{ url_for('clientview.index') }}'+id);
-			showDialog('Detalhes',1170);
-		}
-
-		function showOrderForm(client_id){
-			//$('#dialog').load('{{ url_for('orderview.create_view') }}')
-			var htmlString = '<iframe id="frame" src="" width="100%" height="600"></iframe>';
-			//alert(htmlString);
-			$('#dialog').html(htmlString);
-			$("#frame").attr("src", "{{ url_for('orderview.create_view') }}");
-			//$('#frame').load("{{ url_for('orderview.create_view') }}");
-			showDialog('Gerar Ordem',640);
 		}
 	</script>
 {% endblock %}

@@ -2,11 +2,12 @@
 
 {% block body %}
 	<h1>Dados</h1>
-
-	{% for k,v in client.data.items() %}
-		<li>{{ k }}:{{ v }}</li>
-	{% endfor %}
-
+		<ul>
+			<li><strong>nome:</strong> {{ client.name }}</li>
+			<li><strong>CPF:</strong> {{ client.cpf }}</li>
+			<li><strong>email:</strong> {{ client.email }}</li>
+			<li><strong>Endereço:</strong> {{ client.address }}</li>
+		</ul>
 	{% set _data = client.orders %}
 	{% set _columns = list_columns %}
 
