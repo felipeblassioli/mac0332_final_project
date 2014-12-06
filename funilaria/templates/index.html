@@ -1,24 +1,28 @@
-
+{% extends 'admin/master.html' %}
 
 {% block body %}
-	<h1>Dados</h1>
-		<ul>
-			<li><strong>nome:</strong> {{ client.name }}</li>
-			<li><strong>CPF:</strong> {{ client.cpf }}</li>
-			<li><strong>email:</strong> {{ client.email }}</li>
-			<li><strong>Endereço:</strong> {{ client.address }}</li>
-		</ul>
-	{% set _data = client.orders %}
-	{% set _columns = list_columns %}
 
-	<h1>Ordens</h1>
-	{% set data = client.orders %}
-	{% set list_columns = _columns['orders'] %}
-	{% include 'list.html' with context %}
+<h1>MAC0332 - Projeto Final: Funilaria</h1>
 
-	{% set data = client.vehicles %}
-	{% set list_columns = _columns['vehicles'] %}
-	<h1>Veiculos</h1>
-	{% include 'list.html' with context %}
-    
+<p>Favor considerar <a href="https://github.com/felipeblassioli/mac0332_final_project/archive/master.zip">essa</a> versão do código-fontes fonte.</p>
+<p>A última mudança foi feita no dia seguinte depois do prazo de entrega, como consta nos commits do <a href="https://github.com/felipeblassioli/mac0332_final_project/">github do projeto</a>.</p>
+
+Em relação ao código entregue no PACA as mudanças foram:
+
+<ul>
+	<li>Adiciona view de veículos</li>
+	<li>Adiciona view de relatórios</li>
+	<li>Refatoração do código: criado pacote views</li>
+	<li>Adicionado script de deployment: fabfile.py</li>
+</ul>
+
+O código continua sem:
+<ul>
+	<li>Testes de unidade</li>
+	<li>Testes funcionais</li>
+	<li>Login de usuarios (Atendente e Gerente devem ver coisas diferentes)</li>
+	<li>Upload de imagens/fotos</li>
+</ul>
+
+
 {% endblock %}

@@ -32,7 +32,7 @@ if app.debug:
 
 
 from flask.ext import admin
-
+from flask.ext.admin import AdminIndexView
 class MyAdmin(admin.Admin):
 	def add_view(self, view, show_in_menu=True):
 		self._views.append(view)
@@ -44,6 +44,6 @@ class MyAdmin(admin.Admin):
 		if show_in_menu:
 			self._add_view_to_menu(view)
 
-admin = MyAdmin(app, name='Funilaria')
+admin = MyAdmin(app, name='Funilaria', index_view=AdminIndexView(template='index.html'), base_template='layout.html')
 
 from views import *

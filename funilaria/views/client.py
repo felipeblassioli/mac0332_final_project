@@ -18,7 +18,7 @@ class ClientView(BaseMultiView):
 		print list(p.vehicles.execute())
 		print '-------xxxxxxxxxxxxxxxxxxx-----'
 		return self.render(
-			'index.html', 
+			'client.html', 
 			client = p,
 			num_pages=1, 
 			get_value=self.get_list_value,
