@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from flask.ext.admin.contrib.peewee import ModelView
-from flask.ext.admin import BaseView
 from wtforms import SelectField
 from wtforms.validators import Email
 
