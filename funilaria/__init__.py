@@ -46,4 +46,4 @@ class MyAdmin(admin.Admin):
 
 admin = MyAdmin(app, name='Funilaria')
 
-import api
+from views import *

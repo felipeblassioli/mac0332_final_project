@@ -1,0 +1,2 @@
+recursive-include funilaria/templates *
+recursive-include funilaria/static *

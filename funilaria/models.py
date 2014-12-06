@@ -56,6 +56,7 @@ class Vehicle(BaseModel):
 
 	def __str__(self):
 		return '%s - %d placa: %s' % (self.model,self.year,self.plate)
+		
 class Order(BaseModel):
 	client = ForeignKeyField(Person, related_name='orders')
 	vehicle = ForeignKeyField(Vehicle)
