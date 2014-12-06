@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from . import app, admin
-
+from flask import redirect
 
 @app.route('/')
 def hello():
-	return 'Hello world'
+	return redirect('/admin')
 
 from .models import create_tables
 @app.route('/setup/')

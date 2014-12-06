@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+    ServerAdmin felipe.blassioli@vtxbrasil.com.br
+    ServerName  mac0332-dev.myeyes.com.br
+
+    DocumentRoot /opt/dummy
+    CustomLog /var/log/apache2/funilaria.access.log combined
+    ErrorLog /var/log/apache2/funilaria.error.log
+
+    Alias /docs /var/www/funilaria/docs
+    WSGIScriptAlias / /var/www/funilaria/funilaria.wsgi
+</VirtualHost>

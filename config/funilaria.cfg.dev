@@ -1,0 +1,8 @@
+DIR_ROOT = '/var/www/funilaria'
+UPLOADED_DEFAULT_DEST = DIR_ROOT + '/uploads'
+DATABASE = {
+	'name': 'funilaria',
+	'engine': 'peewee.MySQLDatabase',
+	'user': 'root',
+	'passwd': 'algebra2'
+}
