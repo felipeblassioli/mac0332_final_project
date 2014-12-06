@@ -27,7 +27,7 @@ class BaseModel(db.Model):
 class Person(BaseModel):
 	name = TextField()
 	email = TextField()
-	cpf = TextField()
+	cpf = CharField(max_length=15, unique=True)
 	address = TextField()
 	# A: Attendant, M: Manager, C: Client
 	type = CharField(max_length=1)
@@ -39,6 +39,10 @@ class Person(BaseModel):
 	def __str__(self):
 		return '{} ({})'.format(self.name, self.cpf)
 
+class User(BaseModel):
+	person = ForeignKeyField(Person)
+	password = CharField(max_length=30)
+
 class Phone(BaseModel):
 	# 'M': Mobile, 'W': Work
 	type = CharField(max_length=1)
@@ -49,6 +53,7 @@ class Phone(BaseModel):
 		return self.type == 'M'
 
 class Vehicle(BaseModel):
+	added_by = ForeignKeyField(Person, related_name='vehicles_added', null=True)
 	owner = ForeignKeyField(Person, related_name='vehicles')
 	year = IntegerField()
 	model = CharField(max_length=32)
@@ -58,9 +63,13 @@ class Vehicle(BaseModel):
 		return '%s - %d placa: %s' % (self.model,self.year,self.plate)
 		
 class Order(BaseModel):
+	added_by = ForeignKeyField(Person, related_name='orders_added', null=True)
 	client = ForeignKeyField(Person, related_name='orders')
 	vehicle = ForeignKeyField(Vehicle)
-	remind_at = DateTimeField(null=True)
+	
+	begin = DateTimeField(default=datetime.datetime.now)
+	end = DateTimeField(null=True)
+	remind_at = DateTimeField(default=(datetime.datetime.now()+datetime.timedelta(days=15)))
 
 
 class Photo(BaseModel):
@@ -77,7 +86,7 @@ class PersonPhone(db.Model):
 
 # ---------------- Utils ---------------- #
 
-MODELS = [Person, Phone, Vehicle, Order, Photo, PersonPhone]
+MODELS = [Person, User, Phone, Vehicle, Order, Photo, PersonPhone]
 def create_tables():
 	for m in MODELS:
 		m.create_table(fail_silently=True)

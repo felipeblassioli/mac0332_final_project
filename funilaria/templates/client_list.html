@@ -57,12 +57,10 @@
 		}
 
 		function showOrderForm(client_id){
-			//$('#dialog').load('{{ url_for('orderview.create_view') }}')
 			var htmlString = '<iframe id="frame" src="" width="100%" height="600"></iframe>';
-			//alert(htmlString);
+
 			$('#dialog').html(htmlString);
 			$("#frame").attr("src", "{{ url_for('orderview.create_view') }}");
-			//$('#frame').load("{{ url_for('orderview.create_view') }}");
 			$('#dialog').dialog({
 				autoOpen: true,
 				modal: true,

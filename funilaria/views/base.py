@@ -8,6 +8,8 @@ from flask.ext.admin.model.helpers import prettify_name
 from jinja2 import contextfunction
 from peewee import ForeignKeyField, PrimaryKeyField
 
+from .models import Vehicle, Order
+
 class MyBaseModelView(ModelView):
 	form_excluded_columns = ('created_at', 'updated_at')
 

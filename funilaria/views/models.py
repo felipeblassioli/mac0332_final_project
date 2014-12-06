@@ -34,6 +34,9 @@ class PersonView(MyBaseModelView):
 	def __init__(self, **kwargs):
 		super(PersonView, self).__init__(Person, **kwargs)
 
+	def get_query(self):
+		return self.model.select().where(Person.type=='C')
+
 class OrderView(MyBaseModelView):
 	column_list = ('client', 'vehicle', 'remind_at', 'created_at')
 
